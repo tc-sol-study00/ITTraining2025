@@ -15,6 +15,34 @@ namespace EntityFrameworkStudy {
 
         public void KougiYouMethod() {
 
+            List<ClassAttr> classAttrs = new List<ClassAttr> { new ClassAttr { ClassCode = "A", Tannin="Aさん"  } };
+
+            List<Education> educations = new List<Education> {
+                new Education { ClassCode = "A", SeitoNo="01", KokugoScore=10,SuugakuScore=11,RikaScore=12 },
+                new Education { ClassCode = "A", SeitoNo="02", KokugoScore=20,SuugakuScore=21,RikaScore=22 },
+                new Education { ClassCode = "A", SeitoNo="03", KokugoScore=30,SuugakuScore=31,RikaScore=32 },
+            };
+
+            foreach (var item in classAttrs) {
+                var exist = _context.ClassAttr.Find(item.ClassCode);
+                if (exist == null) {
+                    _context.ClassAttr.Add(item);
+                }
+            }
+
+            foreach (var item in educations) {
+                var exist = _context.Education.Find(item.ClassCode,item.SeitoNo);
+                if (exist == null) {
+                    _context.Education.Add(item);
+                }
+            }
+            _context.SaveChanges();
+
+            Environment.Exit(0);
+
+
+            var result = _context.Education.Where(x => x.ClassCode == "A").OrderBy(x => x.SeitoNo).ToList();
+
             var d = _context.Education;
             var e = d.Where(x => x.ClassCode == "A" && x.SeitoNo == "01");
             var xx = e.ToList();

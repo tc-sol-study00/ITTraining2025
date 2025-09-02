@@ -2,16 +2,18 @@
 using Microsoft.EntityFrameworkCore;
 using ASPEnshu.Data;
 using ASPEnshu.Models;
+using ASPEnshu.Models.Services;
 
 namespace ASPEnshu
 {
     public class EmployeesController : Controller
     {
         private readonly ASPEnshuContext _context;
-
+        private readonly EmployeeServices _employeeServices;
         public EmployeesController(ASPEnshuContext context)
         {
             _context = context;
+            _employeeServices = new EmployeeServices(_context);
         }
 
         // GET: Employees
@@ -56,8 +58,7 @@ namespace ASPEnshu
         {
             if (ModelState.IsValid)
             {
-                _context.Add(employee);
-                await _context.SaveChangesAsync();
+                _employeeServices.AddEmployee(employee);
                 return RedirectToAction(nameof(Index));
             }
             return View(employee);
