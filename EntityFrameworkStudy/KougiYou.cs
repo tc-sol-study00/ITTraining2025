@@ -15,7 +15,7 @@ namespace EntityFrameworkStudy {
 
         public void KougiYouMethod() {
 
-            List<ClassAttr> classAttrs = new List<ClassAttr> { new ClassAttr { ClassCode = "A", Tannin="Aさん"  } };
+            List<ClassAttr> classAttrs = new List<ClassAttr> { new ClassAttr { ClassCode = "A", Tannin = "Aさん" } };
 
             List<Education> educations = new List<Education> {
                 new Education { ClassCode = "A", SeitoNo="01", KokugoScore=10,SuugakuScore=11,RikaScore=12 },
@@ -31,12 +31,13 @@ namespace EntityFrameworkStudy {
             }
 
             foreach (var item in educations) {
-                var exist = _context.Education.Find(item.ClassCode,item.SeitoNo);
+                var exist = _context.Education.Find(item.ClassCode, item.SeitoNo);
                 if (exist == null) {
                     _context.Education.Add(item);
                 }
             }
             _context.SaveChanges();
+
 
             Environment.Exit(0);
 
@@ -74,34 +75,46 @@ namespace EntityFrameworkStudy {
 
                 //intのときのdefaultは0
                 //int?のときのdefaultはnull
-                if (inData.Equals(default(T))){
+                if (inData.Equals(default(T))) {
                     //処理
                 }
             }
         }
 
-        public class MainPoi{
+        public class MainPoi {
             public void MainPoiMethod() {
-                new NullChosa<int>().Method1(0);    
+                new NullChosa<int>().Method1(0);
                 new NullChosa<int?>().Method1(null);
             }
         }
 
         //省略形
         public class ChottoDake {
-            
+
             public bool Method2(int? dd) {
                 Nullable<int> x; //これは int? xと同じ
-                var a = dd??0;      //ddがnullなら0、どうでないならddの値適用
-                var b = dd>0?1:2;   //ddが0より多い場合、1、そうでなければ2
-                bool c = b>1;       //b>1の比較結果をtrueかfalseでセット
+                var a = dd ?? 0;      //ddがnullなら0、どうでないならddの値適用
+                var b = dd > 0 ? 1 : 2;   //ddが0より多い場合、1、そうでなければ2
+                bool c = b > 1;       //b>1の比較結果をtrueかfalseでセット
                 return (b > 1);     //b>1の比較結果をtrueかfalseで返却
             }
 
         }
 
+        void Hidoki() {
+            List<int> int1s = new List<int> { 1, 2, 3, 4, 5 };
+            List<int> int2s = new List<int> { 1, 2, 3, 4, 5 };
 
+            for (int i = 0; i < int1s.Count; i++) {
+                for (int j = 0; j < int2s.Count; j++) {
+                    Task<int> r = Add(int1s[i], int2s[j]);
+                }
+            }
+        }
 
+        Task<int> Add(int a, int b) {
+            return Task.FromResult(a + b);
+        }
 
     }
 }
