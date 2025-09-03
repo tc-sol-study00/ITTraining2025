@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using ASPEnshu.Models;
+using ASPEnshu.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASPEnshu.Controllers
