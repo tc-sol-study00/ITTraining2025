@@ -1,17 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using ASPEnshu.Data;
 using ASPEnshu.Models;
 using ASPEnshu.Models.Services;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace ASPEnshu.Controllers {
     public class EmployeesController : Controller {
         private readonly ASPEnshuContext _context;
-        private readonly EmployeeServices _employeeServices;
+        private readonly IEmployeeService _employeeServices;
         public EmployeesController(ASPEnshuContext context) {
             _context = context;
-            _employeeServices = new EmployeeServices(_context);
+            _employeeServices = new EmployeeService(_context);
         }
 
         // GET: Employees

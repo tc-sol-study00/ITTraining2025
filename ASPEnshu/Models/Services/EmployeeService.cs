@@ -1,13 +1,11 @@
 ﻿using ASPEnshu.Data;
-using ASPEnshu.Models;
-using ASPEnshu.Models.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace ASPEnshu.Models.Services {
-    public class EmployeeServices {
+    public class EmployeeService : IEmployeeService {
 
         private readonly ASPEnshuContext _context;
-        public EmployeeServices(ASPEnshuContext context) {
+        public EmployeeService(ASPEnshuContext context) {
             _context = context;
         }
 
