@@ -30,11 +30,10 @@ namespace ASPEnshu.Models.Services {
         /// <param name="id"></param>
         /// <returns>存在していればEmployee(一行）を返却、なければnullを返却</returns>
         public async Task<Employee?> GetEmployeeWithExistCheck(string id) {
-            if (id == null || _context.Employee == null) {
-                return null;
-            }
 
-            Employee employee = await GetEmployeeByIdAsync(id);
+            if (id == null || _context.Employee == null) return null;
+
+            Employee? employee = await GetEmployeeByIdAsync(id);
             if (employee == null) {
                 return null;
             }
@@ -67,15 +66,15 @@ namespace ASPEnshu.Models.Services {
         /// <param name="employee"></param>
         /// <returns></returns>
         public async Task<bool> UpdateEmployeeAsync(Employee employee) {
+            
             try {
                 _context.Update(employee);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException) {
 
-                bool checkResult=
-                    await (_context.Employee?.AnyAsync(e => e.EmployeeNo == employee.EmployeeNo) ?? Task.FromResult(false));
-                if (checkResult) {
+                if (await (_context.Employee?.AnyAsync(e => e.EmployeeNo == employee.EmployeeNo) ?? Task.FromResult(false)))
+                {
                     return false;
                 }
                 else {
@@ -91,15 +90,12 @@ namespace ASPEnshu.Models.Services {
         /// <param name="id"></param>
         /// <returns></returns>
         public async Task<bool> RemoveEmployeeAsync(string id) {
+            Employee? employee = default;
 
-            if (_context.Employee == null) {
-                return false;
-            }
+            if (_context.Employee == null) return false;
 
-            var employee = await GetEmployeeByIdAsync(id);
-            if (employee != null) {
+            if ((employee = await GetEmployeeByIdAsync(id)) != null)
                 _context.Employee.Remove(employee);
-            }
 
             await _context.SaveChangesAsync();
 

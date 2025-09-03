@@ -5,7 +5,7 @@ using ASPEnshu.Models;
 using ASPEnshu.Models.Services;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace ASPEnshu {
+namespace ASPEnshu.Controllers {
     public class EmployeesController : Controller {
         private readonly ASPEnshuContext _context;
         private readonly EmployeeServices _employeeServices;
