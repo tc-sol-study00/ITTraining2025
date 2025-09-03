@@ -4,7 +4,7 @@ namespace Hidoki {
     internal class Program {
         static async Task Main(string[] args) {
             Hidoki hidoki = new Hidoki();
-            Task<int> task = hidoki.HidokiMethod();
+            Task<int> task = hidoki.HidokiMethodAsync();
 
             int ttl = 0;
             for (int i = 0; i < 10000; i++) ttl += i;
@@ -20,8 +20,8 @@ namespace Hidoki {
     }
 
     public class Hidoki {
-        public async Task<int> HidokiMethod() {
-            await Task.Delay(10000);
+        public async Task<int> HidokiMethodAsync() {
+            await Task.Delay(30000);    //30s
 
             return 1;
         }
