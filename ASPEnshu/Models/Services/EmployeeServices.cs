@@ -30,14 +30,9 @@ namespace ASPEnshu.Models.Services {
         /// <param name="id"></param>
         /// <returns>存在していればEmployee(一行）を返却、なければnullを返却</returns>
         public async Task<Employee?> GetEmployeeWithExistCheck(string id) {
+            if (string.IsNullOrEmpty(id) || _context.Employee == null) return null;
 
-            if (id == null || _context.Employee == null) return null;
-
-            Employee? employee = await GetEmployeeByIdAsync(id);
-            if (employee == null) {
-                return null;
-            }
-            return employee;
+            return await GetEmployeeByIdAsync(id);
         }
         /// <summary>
         /// 主キー(id)指定された場合のEmployee取り出し（１行）
@@ -56,6 +51,8 @@ namespace ASPEnshu.Models.Services {
         /// <param name="employee"></param>
         /// <returns></returns>
         public async Task AddEmployeeAsync(Employee employee) {
+            if (employee == null) throw new ArgumentNullException(nameof(employee));
+
             _context.Add(employee);
             await _context.SaveChangesAsync();
         }
@@ -66,23 +63,25 @@ namespace ASPEnshu.Models.Services {
         /// <param name="employee"></param>
         /// <returns></returns>
         public async Task<bool> UpdateEmployeeAsync(Employee employee) {
-            
+            if (employee == null) throw new ArgumentNullException(nameof(employee));
+
             try {
                 _context.Update(employee);
                 await _context.SaveChangesAsync();
+                return true;
             }
             catch (DbUpdateConcurrencyException) {
+                // 対象のEmployeeがまだ存在するか確認
+                bool exists = _context.Employee != null &&
+                              await _context.Employee.AnyAsync(e => e.EmployeeNo == employee.EmployeeNo);
 
-                if (await (_context.Employee?.AnyAsync(e => e.EmployeeNo == employee.EmployeeNo) ?? Task.FromResult(false)))
-                {
-                    return false;
-                }
-                else {
+                if (!exists) {
                     throw;
                 }
+                return false;
             }
-            return true;
         }
+
 
         /// <summary>
         /// Employeeデータ削除
@@ -90,16 +89,18 @@ namespace ASPEnshu.Models.Services {
         /// <param name="id"></param>
         /// <returns></returns>
         public async Task<bool> RemoveEmployeeAsync(string id) {
-            Employee? employee = default;
+            if (string.IsNullOrWhiteSpace(id) || _context.Employee == null)
+                return false;
 
-            if (_context.Employee == null) return false;
+            var employee = await GetEmployeeByIdAsync(id);
+            if (employee == null)
+                return false;
 
-            if ((employee = await GetEmployeeByIdAsync(id)) != null)
-                _context.Employee.Remove(employee);
-
+            _context.Employee.Remove(employee);
             await _context.SaveChangesAsync();
 
             return true;
         }
+
     }
 }
