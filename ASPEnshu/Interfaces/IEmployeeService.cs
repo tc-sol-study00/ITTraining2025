@@ -1,4 +1,6 @@
-﻿namespace ASPEnshu.Models.Services {
+﻿using ASPEnshu.Models.DTOs;
+
+namespace ASPEnshu.Models.Services {
     public interface IEmployeeService {
 
         /*

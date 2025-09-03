@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ASPEnshu.Data;
-using ASPEnshu.Models;
 using ASPEnshu.Models.Services;
+using ASPEnshu.Models.DTOs;
 
 namespace ASPEnshu.Controllers {
     public class EmployeesController : Controller {

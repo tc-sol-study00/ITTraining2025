@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ASPEnshu.Models {
+namespace ASPEnshu.Models.DTOs {
 
     [Table("employee")]
     public class Employee {

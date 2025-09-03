@@ -1,4 +1,4 @@
-namespace ASPEnshu.Models
+namespace ASPEnshu.Models.ViewModels
 {
     public class ErrorViewModel
     {
