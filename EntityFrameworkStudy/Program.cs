@@ -3,9 +3,6 @@ using EntityFrameworkStudy.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 
-
-
-
 namespace EntityFrameworkStudy {
     
     class Program {

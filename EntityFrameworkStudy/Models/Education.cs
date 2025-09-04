@@ -21,7 +21,8 @@ namespace EntityFrameworkStudy.Models {
         public uint? SuugakuScore { get; set; }
         [Column("rika")]
         public uint? RikaScore { get; set; }
-      
+
+        //ナビゲーションプロパティ      
         public ClassAttr? ClassAttr { get; set; }
 
     }
