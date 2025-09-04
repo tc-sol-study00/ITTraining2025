@@ -1,11 +1,12 @@
-﻿using EntityFrameworkStudy.Data;
+﻿using EntityFrameworkStudy;
+using EntityFrameworkStudy.Data;
 using EntityFrameworkStudy.Models;
 using Microsoft.EntityFrameworkCore;
-using EntityFrameworkStudy;
-using System;
 using Microsoft.EntityFrameworkCore.Storage;
-using System.Threading.Tasks.Dataflow;
+using System;
+using System.Collections.ObjectModel;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks.Dataflow;
 
 namespace EntityFrameworkStudy {
     public class KougiYou {
@@ -43,6 +44,7 @@ namespace EntityFrameworkStudy {
                 var educations7 = _context.Education;
                 var educations8 = educations7.OrderBy(x => x.ClassCode);
 
+                int xxxx=1;
                 if (xxxx == 1) {
                     educations8 = educations8.ThenBy(x => x.SeitoNo);
                 }
@@ -87,11 +89,13 @@ namespace EntityFrameworkStudy {
                     )
                     .ToList();
             }
-            //IEnumerable -> ICollect -> IList -> List
+
 
             {
+                //IEnumerable -> ICollect -> IList -> List
+
                 //IEnumerable
-                IEnumerable<Education> educations = _context.Education.ToList();
+                IEnumerable<Education> educations = _context.Education;
 
                 foreach (Education aEducation in educations) {
                     Console.WriteLine("ClassCode={0}:SeitoNo={1}", aEducation.ClassCode, aEducation.SeitoNo);
@@ -99,7 +103,7 @@ namespace EntityFrameworkStudy {
 
                 //ICollection
 
-                ICollection<Education> educations1 = _context.Education.ToList();
+                ICollection<Education> educations1 = new Collection<Education>(_context.Education.ToList());
 
                 Education education = new Education { ClassCode = "A", SeitoNo = "10" };
                 educations1.Add(education);
