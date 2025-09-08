@@ -1,0 +1,64 @@
+﻿@using ASPMVCStudy.Models
+@model NameDataViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>ASP Model渡し</h1>
+
+<form asp-action="Index">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <label asp-for="@Model.NameDatas[0].Name" class="control-label"></label>
+                </th>
+                <th>
+                    <label asp-for="@Model.NameDatas[0].Address" class="control-label"></label>
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @for (int c = 0; c < Model.NameDatas.Count; c++) {
+                <tr>
+                    @if (Model.SyoriFlg == NameDataViewModel.EnumShoriFlg.Input) {
+                        <td>
+                            <input asp-for="@Model.NameDatas[c].Name" class="form-control" />
+                        </td>
+                        <td>
+                            <input asp-for="@Model.NameDatas[c].Address" class="form-control" />
+                        </td>
+                    }else if(Model.SyoriFlg == NameDataViewModel.EnumShoriFlg.Label)
+                    {
+                        <td>
+                           @Model.NameDatas[c].Name
+                        </td>
+                        <td>
+                           @Model.NameDatas[c].Address
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="form-group">
+        @if (Model.SyoriFlg == NameDataViewModel.EnumShoriFlg.Input) {
+            <input type="submit" value="Model渡し" class="btn btn-primary" />
+        }else if(Model.SyoriFlg == NameDataViewModel.EnumShoriFlg.Label){
+            <a href="/NameData/Index" class="btn btn-primary">入力画面</a>
+        }
+    </div>
+
+    <p class="text-primary">
+        @Model.Message
+    </p>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
