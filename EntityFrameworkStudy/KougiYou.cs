@@ -1,12 +1,7 @@
-﻿using EntityFrameworkStudy;
-using EntityFrameworkStudy.Data;
+﻿using EntityFrameworkStudy.Data;
 using EntityFrameworkStudy.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
-using System;
 using System.Collections.ObjectModel;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks.Dataflow;
 
 namespace EntityFrameworkStudy {
     public class KougiYou {
@@ -15,7 +10,6 @@ namespace EntityFrameworkStudy {
         public KougiYou(EntityFrameworkStudyContext context) {
             _context = context;
         }
-
         public void KougiYouMethod() {
             {
                 var educations = _context.Education;
@@ -92,7 +86,7 @@ namespace EntityFrameworkStudy {
 
 
             {
-                //IEnumerable -> ICollect -> IList -> List
+                //IEnumerable 継承-> ICollection 継承-> IList 実装-> List
 
                 //IEnumerable
                 IEnumerable<Education> educations = _context.Education;
@@ -143,7 +137,7 @@ namespace EntityFrameworkStudy {
 
         public bool? CheckData(IEnumerable<Education> argEducations) {
 
-            if(argEducations == null) return null; 
+            if(argEducations == null) return null;
 
             bool result = true;
             foreach ( Education aEducation in argEducations) {
