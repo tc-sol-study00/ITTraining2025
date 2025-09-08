@@ -1,36 +1,31 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ASPMVCStudy.Models;
 
-namespace ASPMVCStudy.Controllers
-{
-    public class NameDataController : Controller
-    {
-        //private readonly ASPMVCStudyContext _context;
-
-        public NameDataController()
-        {
+namespace ASPMVCStudy.Controllers {
+    public class NameDataController : Controller {
+        public NameDataController() {
         }
-
         // GET: Data
-        public async Task<IActionResult> Index(string id)
-        {
-            NameDataViewModel model = new NameDataViewModel();
-            model.InputOrDisplayFlag = NameDataViewModel.EnumInputOrDisplayFlag.Input;
-            model.NameDatas = new List<NameData>() { new NameData() { Name = "名前", Address = "福岡" }, new NameData() { Name = "名前2", Address = "福岡2" } };
-            return View(model);
+        public async Task<IActionResult> Index(string id) {
+
+            NameDataViewModel nameDataViewModel = new NameDataViewModel() {
+                InputOrDisplayFlag = NameDataViewModel.EnumInputOrDisplayFlag.Input,
+                NameDatas = new List<NameData>() { new NameData() { Name = "名前", Address = "福岡" }, new NameData() { Name = "名前2", Address = "福岡2" } },
+            };
+            return View(nameDataViewModel);
         }
 
         //Post
-
         [HttpPost]
-        public async Task<IActionResult> Index(string id,[Bind("NameDatas")] NameDataViewModel postedNameDataViewModel) {
+        public async Task<IActionResult> Index(string id, [Bind("NameDatas")] NameDataViewModel postedNameDataViewModel) {
             ModelState.Clear();
 
-            NameDataViewModel model = new NameDataViewModel();
-            model.InputOrDisplayFlag = NameDataViewModel.EnumInputOrDisplayFlag.Display;
-            model.NameDatas = postedNameDataViewModel.NameDatas;
-            model.Message = "Postで渡されたデータを表示しました";
-            return View(model);
+            NameDataViewModel nameDataViewModel = new NameDataViewModel() {
+                InputOrDisplayFlag = NameDataViewModel.EnumInputOrDisplayFlag.Display,
+                NameDatas = postedNameDataViewModel.NameDatas,
+                Message = "Postで渡されたデータを表示しました",
+            };
+            return View(nameDataViewModel);
         }
     }
 }

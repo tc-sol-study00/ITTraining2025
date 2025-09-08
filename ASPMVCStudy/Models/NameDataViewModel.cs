@@ -2,16 +2,18 @@
     public class NameDataViewModel {
 
         public enum EnumInputOrDisplayFlag{
-            Input,
-            Display,
+            Nothing=0,
+            Input=1,
+            Display=2,
         }
 
-        public EnumInputOrDisplayFlag InputOrDisplayFlag { get; set; }
-        public List<NameData> NameDatas { get; set; }
+        public required EnumInputOrDisplayFlag InputOrDisplayFlag { get; set; }
+        public required List<NameData> NameDatas { get; set; }
         public string Message { get; set; }
         public NameDataViewModel() {
             NameDatas = new List<NameData>();
             Message = string.Empty;
+            InputOrDisplayFlag = EnumInputOrDisplayFlag.Nothing;
         }
     }
 }
