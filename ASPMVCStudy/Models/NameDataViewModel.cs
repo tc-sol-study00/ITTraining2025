@@ -7,8 +7,10 @@
             Display=2,
         }
 
-        public required EnumInputOrDisplayFlag InputOrDisplayFlag { get; set; }
-        public required List<NameData> NameDatas { get; set; }
+        //initは初期化記述子しばり
+        //requiredは、初期化が必ず必要で、方法としてはコンストラクタか、初期化記述し
+        public required EnumInputOrDisplayFlag InputOrDisplayFlag { get; init; }
+        public required List<NameData> NameDatas { get; init; }
         public string Message { get; set; }
         public NameDataViewModel() {
             NameDatas = new List<NameData>();
