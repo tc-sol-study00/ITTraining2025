@@ -23,20 +23,20 @@
         <tbody>
             @for (int c = 0; c < Model.NameDatas.Count; c++) {
                 <tr>
-                    @if (Model.SyoriFlg == NameDataViewModel.EnumShoriFlg.Input) {
+                    @if (Model.InputOrDisplayFlag == NameDataViewModel.EnumInputOrDisplayFlag.Input) {
                         <td>
                             <input asp-for="@Model.NameDatas[c].Name" class="form-control" />
                         </td>
                         <td>
                             <input asp-for="@Model.NameDatas[c].Address" class="form-control" />
                         </td>
-                    }else if(Model.SyoriFlg == NameDataViewModel.EnumShoriFlg.Label)
+                    }else if(Model.InputOrDisplayFlag == NameDataViewModel.EnumInputOrDisplayFlag.Display)
                     {
                         <td>
-                           @Model.NameDatas[c].Name
+                           <p>@Model.NameDatas[c].Name</p>
                         </td>
                         <td>
-                           @Model.NameDatas[c].Address
+                           <p>@Model.NameDatas[c].Address</p>
                         </td>
                     }
                 </tr>
@@ -44,9 +44,9 @@
         </tbody>
     </table>
     <div class="form-group">
-        @if (Model.SyoriFlg == NameDataViewModel.EnumShoriFlg.Input) {
+        @if (Model.InputOrDisplayFlag == NameDataViewModel.EnumInputOrDisplayFlag.Input) {
             <input type="submit" value="Model渡し" class="btn btn-primary" />
-        }else if(Model.SyoriFlg == NameDataViewModel.EnumShoriFlg.Label){
+        }else if(Model.InputOrDisplayFlag == NameDataViewModel.EnumInputOrDisplayFlag.Display){
             <a href="/NameData/Index" class="btn btn-primary">入力画面</a>
         }
     </div>

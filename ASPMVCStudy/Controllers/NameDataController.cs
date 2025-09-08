@@ -15,7 +15,7 @@ namespace ASPMVCStudy.Controllers
         public async Task<IActionResult> Index(string id)
         {
             NameDataViewModel model = new NameDataViewModel();
-            model.SyoriFlg = NameDataViewModel.EnumShoriFlg.Input;
+            model.InputOrDisplayFlag = NameDataViewModel.EnumInputOrDisplayFlag.Input;
             model.NameDatas = new List<NameData>() { new NameData() { Name = "名前", Address = "福岡" }, new NameData() { Name = "名前2", Address = "福岡2" } };
             return View(model);
         }
@@ -27,7 +27,7 @@ namespace ASPMVCStudy.Controllers
             ModelState.Clear();
 
             NameDataViewModel model = new NameDataViewModel();
-            model.SyoriFlg = NameDataViewModel.EnumShoriFlg.Label;
+            model.InputOrDisplayFlag = NameDataViewModel.EnumInputOrDisplayFlag.Display;
             model.NameDatas = postedNameDataViewModel.NameDatas;
             model.Message = "Postで渡されたデータを表示しました";
             return View(model);

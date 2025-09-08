@@ -1,12 +1,12 @@
 ﻿namespace ASPMVCStudy.Models {
     public class NameDataViewModel {
 
-        public enum EnumShoriFlg{
+        public enum EnumInputOrDisplayFlag{
             Input,
-            Label,
+            Display,
         }
 
-        public EnumShoriFlg SyoriFlg { get; set; }
+        public EnumInputOrDisplayFlag InputOrDisplayFlag { get; set; }
         public List<NameData> NameDatas { get; set; }
         public string Message { get; set; }
         public NameDataViewModel() {
