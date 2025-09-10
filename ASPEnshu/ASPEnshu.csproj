@@ -1,4 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<!-- 
+    ASP演習用プロジェクト
+	スキャフォールディングした結果
+	Employeeから展開
+-->
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>

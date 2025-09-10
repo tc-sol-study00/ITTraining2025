@@ -1,3 +1,6 @@
+<!--
+    オイル・GSシミュレーション
+-->
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>

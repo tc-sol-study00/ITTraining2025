@@ -1,3 +1,7 @@
+<!--
+    オブジェクト指向　移譲の説明用
+	ついになる説明様に「DI」がある
+-->
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>

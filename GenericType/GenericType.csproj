@@ -1,3 +1,6 @@
+<!--
+    Generic説明用
+-->
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
