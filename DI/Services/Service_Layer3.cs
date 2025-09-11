@@ -10,6 +10,5 @@ namespace DI.Services {
         public void Layer3_Method(decimal argNetPrice) {
             decimal priceWithTax = _common.ConsumptionCulcration(argNetPrice, 8);
         }
-
     }
 }

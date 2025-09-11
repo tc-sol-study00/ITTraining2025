@@ -22,6 +22,8 @@ namespace UseAutoMapper.Services {
 
             //自分で書くと
             List<Education> educations = new List<Education>();
+
+            //ディープコピー
             foreach (Education aEducation in src) {
                 Education createdAEducation = new Education() {
                     ClassCode = aEducation.ClassCode,
@@ -32,9 +34,6 @@ namespace UseAutoMapper.Services {
                 };
                 educations.Add(createdAEducation);
             }
-
-
-
 
             //ディープコピー
             MapperConfiguration mapperConfig = new MapperConfiguration(cfg => {
@@ -47,7 +46,7 @@ namespace UseAutoMapper.Services {
 
             List<Education> dest2 = mapper.Map<List<Education>>(src);
 
-            List<EducationTotal> educationTotal = mapper.Map<List<EducationTotal>>(src);
+            var educationTotal = mapper.Map<List<EducationTotal>>(src);
 
             return dest2;
 

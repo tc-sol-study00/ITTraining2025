@@ -11,11 +11,14 @@ namespace Delegate.Properties {
             decimal priceWithConsumptionTax;    //税込み価格
 
             //税込み価格計算
-            priceWithConsumptionTax = argPriceBeforeTax * ( 1 + argConsumptionTaxPercent / 100.0m);
+            priceWithConsumptionTax = argPriceBeforeTax * (1 + argConsumptionTaxPercent / 100.0m);
             //税込み価格小数点以下切り捨て
             priceWithConsumptionTax = Math.Floor(priceWithConsumptionTax);  //小数点以下切り捨て
-            
+
             return priceWithConsumptionTax;
         }
+    }
+
+    internal class Common2 {
     }
 }

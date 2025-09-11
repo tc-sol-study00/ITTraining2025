@@ -6,7 +6,7 @@ namespace Delegate.Services {
         private readonly Common _common;
 
         //レイヤー3はComonを使う
-        public Service_Layer3(Common common) {
+        public Service_Layer3(Common common, Common2 common2) {
             _common = common;   //移譲でもらった
         }
         public void Layer3_Method(decimal argNetPrice) {

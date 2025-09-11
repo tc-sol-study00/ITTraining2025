@@ -38,7 +38,7 @@ namespace EntityFrameworkStudy {
                 var educations7 = _context.Education;
                 var educations8 = educations7.OrderBy(x => x.ClassCode);
 
-                int xxxx=1;
+                int xxxx = 1;
                 if (xxxx == 1) {
                     educations8 = educations8.ThenBy(x => x.SeitoNo);
                 }
@@ -122,7 +122,7 @@ namespace EntityFrameworkStudy {
                 //引数にList型データをいれているが、メソッド側はIEnumerabled
                 //List型はIList型を実装しており、IList側はIEnimerable型を継承しているので、引数に渡せる（反変性）
 
-                if (CheckData(educations3)??false) {
+                if (CheckData(educations3) ?? false) {
                     Console.WriteLine("Data OK");
                 }
                 else {
@@ -130,18 +130,18 @@ namespace EntityFrameworkStudy {
                 }
 
                 //以下は共変性
-                List<Education> rdata=_context.Education.ToList();
+                List<Education> rdata = _context.Education.ToList();
                 IEnumerable<Education> datax = rdata;
             }
         }
 
         public bool? CheckData(IEnumerable<Education> argEducations) {
 
-            if(argEducations == null) return null;
+            if (argEducations == null) return null;
 
             bool result = true;
-            foreach ( Education aEducation in argEducations) {
-                 result = result && aEducation.SuugakuScore >= 0 && aEducation.RikaScore >= 0 && aEducation.KokugoScore >= 0;
+            foreach (Education aEducation in argEducations) {
+                result = result && aEducation.SuugakuScore >= 0 && aEducation.RikaScore >= 0 && aEducation.KokugoScore >= 0;
             }
 
             return result;
@@ -222,5 +222,105 @@ namespace EntityFrameworkStudy {
             return Task.FromResult(a + b);
         }
 
+
+
+
+
+        /*
+         * Readable Code
+         */
+
+
+        public void ReadableCode(int argData) {
+
+            //エラーは早めに落とし、本処理に埋め込まない
+            if (argData < 0) {
+                throw new Exception("引数エラー");
+            }
+
+            _ = argData < 0 ? throw new Exception("引数エラー") : "OK";
+
+            if (argData < 0)throw new Exception("引数エラー");
+
+
+
+
+            if (argData >= 0) {
+                //本処理
+
+
+
+
+            }
+
+            //否定形を使わない
+
+            int i = 3;
+
+            if( !(i >= 3)) {
+
+            }
+            if (!_context.ClassAttr.Any()) {
+                throw new Exception("NoData");
+            }
+
+            if (IsEntityNoData<ClassAttr>()) {
+                throw new Exception("NoData");    
+            }
+
+            //&&をなるべく使わない
+
+            int a = 10;
+            int b = 20;
+
+            if (a > 5 && b > 20) {
+                //
+            }
+
+            if(a > 5) {
+                if(b > 20) {
+                    //
+                }
+            }
+
+            //なるべくelseは使わない
+
+            if (a > 5) {
+
+            } else if (b > 20) {
+            
+            }
+
+            if (a > 5) {
+
+            }
+            if (b > 20) {
+
+            }
+
+            //抜けるときは早めに抜ける
+            foreach (int aIntData in intDatas) {
+                if (aIntData == null) break;
+
+                /* 本処理 */
+            }
+
+            //わかりやすい変数名
+
+            List<int> intDatas = new List<int>();
+
+            for(int intDatasIdx=0; intDatasIdx < intDatas.Count; intDatasIdx++) {
+
+            }
+
+            //forよりforeach
+            foreach (int aIntData in intDatas) {
+                
+            }
+        }
+
+        public bool IsEntityNoData<T>() where T : class {
+                return !_context.Set<T>().Any();
+        }
     }
 }
