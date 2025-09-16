@@ -1,4 +1,5 @@
 ﻿using EntityFrameworkStudy.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace EntityFrameworkStudy {
     internal class LinqJoin {
 
         private static EntityFrameworkStudyContext _context;
+        private static void SQLDisplay<T>(IQueryable<T> query) where T : class =>
+            Console.WriteLine($"{new string('-',20)+"SQL↓\n"}{query.ToQueryString()}");
 
         public LinqJoin(EntityFrameworkStudyContext context) {
             _context = context;
@@ -21,11 +24,13 @@ namespace EntityFrameworkStudy {
                 cls => cls.ClassCode,           //結合元の結合キー(Joinの第2引数)
                 edu => edu.ClassCode,           //結合元の結合キー(Joinの第3引数)
                 (cls, edu) => new { cls, edu }) //cは、結合元のベクトル、eは結合先のベクトル（フラット）(Joinの第4引数)
-                .ToList();
+                ;
 
             Console.WriteLine(new string('-', 20));
-            query1.ForEach(x =>
+            query1.ToList().ForEach(x =>
                 Console.WriteLine($"{x.cls.ClassCode},{x.cls.Tannin},{x.edu.SeitoNo},{x.edu.KokugoScore}"));
+
+            SQLDisplay(query1);
 
 
             //外部結合
@@ -40,11 +45,13 @@ namespace EntityFrameworkStudy {
                         x => x.edus.DefaultIfEmpty(),   //これがeduになる
                         (x, edu) => new { cls = x.c, edu = edu }    //第1引数にSelectManyのデータ入れ元、eduが、nullを含めたデータ
                     )
-                    .ToList();
+                    ;
 
             Console.WriteLine(new string('-', 20));
-            query2.ForEach(x =>
+            query2.ToList().ForEach(x =>
                 Console.WriteLine($"{x.cls.ClassCode},{x.cls.Tannin},{x.edu?.SeitoNo ?? string.Empty},{x.edu?.KokugoScore ?? 0}"));
+
+            SQLDisplay(query2);
 
             //GroupBy
             var query3 = _context.Education
@@ -54,13 +61,15 @@ namespace EntityFrameworkStudy {
                     TotalKokugoScore = g.Sum(e => e.KokugoScore)  // 合計
                 });
 
+            query3.ToList().ForEach(x => Console.WriteLine($"{x.Key},{x.TotalKokugoScore}"));
+            SQLDisplay(query3);
+
             //外部結合＋GroupBy
             var query4 = _context.ClassAttr  //結合元
                 .GroupJoin(
                    _context.Education,     //結合先
                    c => c.ClassCode,       //結合元の結合キー
                    e => e.ClassCode,       //結合先の結合キー
-
                    (c, edus) => new { c, edus }    //cに結合元のスカラー、edusに結合先のベクトルが入る
                 )
                 .SelectMany(
@@ -68,12 +77,14 @@ namespace EntityFrameworkStudy {
                 (x, edu) => new { cls = x.c, edu }
                 )
                 .GroupBy(x => new { x.cls.ClassCode, x.cls.Tannin })
-                .Select(g => new { g.Key.ClassCode, g.Key.Tannin, TTL = g.Sum(e => e.edu.KokugoScore) })
-                .ToList();
+                .Select(g => new { g.Key.ClassCode, g.Key.Tannin, TTL = g.Sum(e => e.edu.KokugoScore) });
 
             Console.WriteLine(new string('-', 20));
-            query4.ForEach(x =>
+            query4.ToList().ForEach(x =>
                 Console.WriteLine($"{x.ClassCode},{x.Tannin},{x.TTL}"));
+
+            SQLDisplay(query4);
+
 
         }
     }
