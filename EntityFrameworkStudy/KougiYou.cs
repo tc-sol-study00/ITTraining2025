@@ -298,13 +298,6 @@ namespace EntityFrameworkStudy {
 
             }
 
-            //抜けるときは早めに抜ける
-            foreach (int aIntData in intDatas) {
-                if (aIntData == null) break;
-
-                /* 本処理 */
-            }
-
             //わかりやすい変数名
 
             List<int> intDatas = new List<int>();

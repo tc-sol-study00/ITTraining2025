@@ -13,9 +13,9 @@ namespace EntityFrameworkStudy {
             //DBコンテキストの生成
             _context = EntityFrameworkStudyContext.CreateFromConfiguration();
 
-            new KougiYou(_context).KougiYouMethod();
+            //new KougiYou(_context).KougiYouMethod();
             //new Enshu(_context).EnshuMethod();
-
+            new LinqJoin(_context).LinqJoinTest();
 
         }
     }

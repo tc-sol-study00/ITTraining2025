@@ -1,7 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using EntityFrameworkStudy.Data;
+﻿using EntityFrameworkStudy.Data;
 using EntityFrameworkStudy.Models;
-using EntityFrameworkStudy;
+using Microsoft.EntityFrameworkCore;
 
 namespace EntityFrameworkStudy {
     public class Enshu {
@@ -25,6 +24,7 @@ namespace EntityFrameworkStudy {
             var b = a.OrderBy(x => x.ClassCode);
             var c = b.ThenBy(x => x.SeitoNo);
             var d = c.ToList();
+
 
             List<Education> dataList = d;
 
