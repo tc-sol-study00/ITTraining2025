@@ -1,4 +1,5 @@
 ﻿using EntityFrameworkStudy.Data;
+using EntityFrameworkStudy.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace EntityFrameworkStudy {
 
         private static EntityFrameworkStudyContext _context;
         private static void SQLDisplay<T>(IQueryable<T> query) where T : class =>
-            Console.WriteLine($"{new string('-',20)+"SQL↓\n"}{query.ToQueryString()}");
+            Console.WriteLine($"{new string('-', 20) + "SQL↓\n"}{query.ToQueryString()}");
 
         public LinqJoin(EntityFrameworkStudyContext context) {
             _context = context;
@@ -55,13 +56,14 @@ namespace EntityFrameworkStudy {
 
             //GroupBy
             var query3 = _context.Education
-                .GroupBy(x => x.ClassCode)
+                .GroupBy(x => new { x.ClassCode, x.SeitoNo })
                 .Select(g => new {
-                    g.Key,
+                    g.Key.ClassCode,
+                    g.Key.SeitoNo,
                     TotalKokugoScore = g.Sum(e => e.KokugoScore)  // 合計
                 });
 
-            query3.ToList().ForEach(x => Console.WriteLine($"{x.Key},{x.TotalKokugoScore}"));
+            query3.ToList().ForEach(x => Console.WriteLine($"{x.ClassCode}:{x.SeitoNo}:{x.TotalKokugoScore}"));
             SQLDisplay(query3);
 
             //外部結合＋GroupBy
@@ -84,6 +86,60 @@ namespace EntityFrameworkStudy {
                 Console.WriteLine($"{x.ClassCode},{x.Tannin},{x.TTL}"));
 
             SQLDisplay(query4);
+
+
+            //あるかないか系
+
+            if (_context.ClassAttr.Any(x => x.ClassCode == "C")) {
+                Console.WriteLine("ある");
+            }
+            else {
+                Console.WriteLine("ない");
+            }
+
+            //順位付け
+
+            var educationRank = _context.Education
+                .OrderByDescending(o => o.SuugakuScore + o.RikaScore + o.KokugoScore)
+                .AsEnumerable()
+                .Select((x, index) => new {
+                    x.ClassCode,
+                    x.SeitoNo,
+                    TotalScore = x.SuugakuScore + x.RikaScore + x.KokugoScore,
+                    Rank = index + 1
+                });
+
+            educationRank.ToList().ForEach(x => Console.WriteLine("{0}:{1}:{2}:{3}", x.ClassCode, x.SeitoNo, x.TotalScore, x.Rank));
+
+            //GroupByはグループキーを元に、関係データをネスト化する
+            var orderdEducations = _context.Education
+                .GroupBy(x => x.ClassCode)
+                .Select(g => new {
+                    Key = g.Key,        // クラスコードと生徒番号
+                    Educations = g.ToList() // その生徒の成績リスト
+                })
+                .ToList();
+
+            //それを集計する
+            var orderdEducationsSum = _context.Education
+                .GroupBy(x => x.ClassCode)
+                .Select(g => new {
+                    ClassCode = g.Key,        // クラスコードと生徒番号
+                    SumAllScore = g.Sum(d => d.SuugakuScore + d.KokugoScore + d.RikaScore)
+                })
+                .ToList();
+
+            //Firstはスカラーでデータを返すが、データが無かったらAbendする
+            if (_context.Education.Any(x => x.ClassCode == "B")) {
+                var educationFirst = _context.Education.Where(x => x.ClassCode == "B").First();
+            }
+            //Singleはデータがない場合と複数件データが変える場合にAbendする
+            //var educationSingle = _context.Education.Where(x => x.ClassCode == "B").Single();
+            //var educationSingles = _context.Education.Where(x => x.ClassCode == "A").Single();
+
+            List<string> stringdata1 = new List<string>() { "1", "2", "3", "4", "5" };
+            List<string> stringdata2 = new List<string>() { "2", "3","3", "5","5","5" };
+
 
 
         }
