@@ -23,6 +23,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UseAutoMapper", "UseAutoMap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UseNewAutoMapper", "UseNewAutoMapper\UseNewAutoMapper.csproj", "{0D901DE2-0F13-4907-8889-3EFD611F3FE9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Convenience", "..\Convenience\Convenience\Convenience.csproj", "{C7FFC4B3-2E56-DAEA-2AD8-12E109DA590E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkStudyWithConvenience", "EntityFrameworkStudyWithConvenience\EntityFrameworkStudyWithConvenience.csproj", "{68E73F39-42B3-464D-943C-0CD9DFF9084C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +73,14 @@ Global
 		{0D901DE2-0F13-4907-8889-3EFD611F3FE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D901DE2-0F13-4907-8889-3EFD611F3FE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D901DE2-0F13-4907-8889-3EFD611F3FE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7FFC4B3-2E56-DAEA-2AD8-12E109DA590E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7FFC4B3-2E56-DAEA-2AD8-12E109DA590E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7FFC4B3-2E56-DAEA-2AD8-12E109DA590E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7FFC4B3-2E56-DAEA-2AD8-12E109DA590E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68E73F39-42B3-464D-943C-0CD9DFF9084C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68E73F39-42B3-464D-943C-0CD9DFF9084C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68E73F39-42B3-464D-943C-0CD9DFF9084C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68E73F39-42B3-464D-943C-0CD9DFF9084C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
