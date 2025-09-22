@@ -137,11 +137,6 @@ namespace EntityFrameworkStudy {
             //var educationSingle = _context.Education.Where(x => x.ClassCode == "B").Single();
             //var educationSingles = _context.Education.Where(x => x.ClassCode == "A").Single();
 
-            List<string> stringdata1 = new List<string>() { "1", "2", "3", "4", "5" };
-            List<string> stringdata2 = new List<string>() { "2", "3","3", "5","5","5" };
-
-
-
         }
     }
 }

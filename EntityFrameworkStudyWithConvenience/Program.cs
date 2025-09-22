@@ -7,7 +7,8 @@ namespace EntityFrameworkStudyWithConvenience {
 
         private static ConvenienceContext _context;
         private static EntityFrameworkNestedObject _EFNestedObject;
-        
+        private static AutoMapperTest _AutoMapperTest;
+
         static void Main(string[] args) {
 
             var configuration = new ConfigurationBuilder()
@@ -23,6 +24,11 @@ namespace EntityFrameworkStudyWithConvenience {
             _context = new ConvenienceContext(optionsBuilder.Options);
 
             _EFNestedObject = new EntityFrameworkNestedObject(_context);
+            new Lecture20250919(_context).EfcodeSimulation();
+
+            _AutoMapperTest = new AutoMapperTest(_context);
+            _AutoMapperTest.AutoMapperTestExecution();
+
         }
     }
 }

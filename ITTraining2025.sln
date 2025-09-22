@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Convenience", "..\Convenien
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkStudyWithConvenience", "EntityFrameworkStudyWithConvenience\EntityFrameworkStudyWithConvenience.csproj", "{68E73F39-42B3-464D-943C-0CD9DFF9084C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChumonDebug", "ChumonDebug\ChumonDebug.csproj", "{AE46D1B5-0960-41B4-854D-95C0DEE63B51}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{68E73F39-42B3-464D-943C-0CD9DFF9084C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68E73F39-42B3-464D-943C-0CD9DFF9084C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68E73F39-42B3-464D-943C-0CD9DFF9084C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE46D1B5-0960-41B4-854D-95C0DEE63B51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE46D1B5-0960-41B4-854D-95C0DEE63B51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE46D1B5-0960-41B4-854D-95C0DEE63B51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE46D1B5-0960-41B4-854D-95C0DEE63B51}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
