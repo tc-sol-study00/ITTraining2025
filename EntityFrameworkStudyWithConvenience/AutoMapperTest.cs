@@ -18,7 +18,6 @@ namespace EntityFrameworkStudyWithConvenience {
 
         public void AutoMapperTestExecution() {
 
-
             var res = _context.ShohinMaster
               .SelectMany(sm => sm.ShiireMasters.Select(p => new { sm, p }));
 
@@ -26,7 +25,7 @@ namespace EntityFrameworkStudyWithConvenience {
             //AutoMapperを使わない場合は、
             //Selectの初期値記述が冗長
             var res1 = _context.ShohinMaster
-                   .SelectMany(sm => sm.ShiireMasters != null ? sm.ShiireMasters.Select(p => new ProductShiireNameDTO {
+                   .SelectMany(sm => sm.ShiireMasters.Select(p => new ProductShiireNameDTO {
                        Shohinid = sm.ShohinId,
                        ShohinName = sm.ShohinName,
                        ShohinTanka = sm.ShohinTanka,
@@ -39,7 +38,6 @@ namespace EntityFrameworkStudyWithConvenience {
                        ShiireUnit = p.ShiireUnit,
                        ShireTanka = p.ShireTanka,
                    })
-                       : new List<ProductShiireNameDTO>()
                    );
 
             //AutoMapperを普通に使った場合、AutoMapperの記述が複雑に
@@ -61,13 +59,12 @@ namespace EntityFrameworkStudyWithConvenience {
             });
 
             var res2 = _context.ShohinMaster
-                .SelectMany(sm => sm.ShiireMasters!= null?sm.ShiireMasters.Select(p => new ShohinShiirePair {
+                .SelectMany(sm => sm.ShiireMasters.Select(p => new ShohinShiirePair {
                     Shohin = sm,
                     Shiire = p
-                }): new List<ShohinShiirePair>())
+                }))
                 .ProjectTo<ProductShiireNameDTO>(config2)
                 ;
-
 
             //AutoMapperのIncludeMembersを使った場合
             MapperConfiguration config3 = new MapperConfiguration(cfg => {
@@ -78,10 +75,10 @@ namespace EntityFrameworkStudyWithConvenience {
             });
 
             var res3 = _context.ShohinMaster
-                .SelectMany(sm => sm.ShiireMasters != null ? sm.ShiireMasters.Select(p => new ShohinShiirePair {
+                .SelectMany(sm => sm.ShiireMasters.Select(p => new ShohinShiirePair {
                     Shohin = sm,
                     Shiire = p
-                }) : new List<ShohinShiirePair>())
+                }))
                 .ProjectTo<ProductShiireNameDTO>(config3)
                 ;
         }
