@@ -19,25 +19,31 @@ namespace EntityFrameworkStudyWithConvenience {
         public void AutoMapperTestExecution() {
 
             var res = _context.ShohinMaster
-              .SelectMany(sm => sm.ShiireMasters.Select(p => new { sm, p }));
+              .Include(sm => sm.ShiireMasters)
+              .SelectMany(
+                sm => sm.ShiireMasters!.DefaultIfEmpty(), 
+                (sm,p) => new { sm, p });
 
 
             //AutoMapperを使わない場合は、
             //Selectの初期値記述が冗長
             var res1 = _context.ShohinMaster
-                   .SelectMany(sm => sm.ShiireMasters.Select(p => new ProductShiireNameDTO {
+                   .Include(sm => sm.ShiireMasters)
+                   .SelectMany(
+                        sm => sm.ShiireMasters!.DefaultIfEmpty(),
+                        (sm,p) => new ProductShiireNameDTO {
                        Shohinid = sm.ShohinId,
                        ShohinName = sm.ShohinName,
                        ShohinTanka = sm.ShohinTanka,
                        ShohiZeiritsu = sm.ShohiZeiritsu,
                        ShohiZeiritsuEatIn = sm.ShohiZeiritsuEatIn,
-                       ShiireSakiId = p.ShiireSakiId,
-                       ShiirePrdId = p.ShiirePrdId,
-                       ShiirePrdName = p.ShiirePrdName,
-                       ShiirePcsPerUnit = p.ShiirePcsPerUnit,
-                       ShiireUnit = p.ShiireUnit,
-                       ShireTanka = p.ShireTanka,
-                   })
+                       ShiireSakiId = p != null ? p.ShiireSakiId : default,
+                       ShiirePrdId = p != null ? p.ShiirePrdId : default,
+                       ShiirePrdName = p != null ? p.ShiirePrdName : default,
+                       ShiirePcsPerUnit = p != null ? p.ShiirePcsPerUnit : default,
+                       ShiireUnit = p != null ? p.ShiireUnit : default,
+                       ShireTanka = p != null ? p.ShireTanka : default,
+                   }
                    );
 
             //AutoMapperを普通に使った場合、AutoMapperの記述が複雑に
@@ -59,10 +65,12 @@ namespace EntityFrameworkStudyWithConvenience {
             });
 
             var res2 = _context.ShohinMaster
-                .SelectMany(sm => sm.ShiireMasters.Select(p => new ShohinShiirePair {
+                .SelectMany(
+                    sm => sm.ShiireMasters!.DefaultIfEmpty(),
+                    (sm, p) => new ShohinShiirePair {
                     Shohin = sm,
-                    Shiire = p
-                }))
+                    Shiire = p != null ? p : new ShiireMaster()
+                    })
                 .ProjectTo<ProductShiireNameDTO>(config2)
                 ;
 
@@ -75,10 +83,12 @@ namespace EntityFrameworkStudyWithConvenience {
             });
 
             var res3 = _context.ShohinMaster
-                .SelectMany(sm => sm.ShiireMasters.Select(p => new ShohinShiirePair {
-                    Shohin = sm,
-                    Shiire = p
-                }))
+                .SelectMany(
+                    sm => sm.ShiireMasters!.DefaultIfEmpty(),
+                    (sm, p) => new ShohinShiirePair {
+                        Shohin = sm,
+                        Shiire = p != null? p : new ShiireMaster()
+                    })
                 .ProjectTo<ProductShiireNameDTO>(config3)
                 ;
         }
@@ -86,7 +96,7 @@ namespace EntityFrameworkStudyWithConvenience {
         //商品と仕入のペアクラス（中間オブジェクト）
         public class ShohinShiirePair {
             public ShohinMaster Shohin { get; set; } = new ShohinMaster();
-            public ShiireMaster Shiire { get; set; } = new ShiireMaster();
+            public ShiireMaster? Shiire { get; set; } = new ShiireMaster();
         }
 
         public class ProductShiireNameDTO {
@@ -97,11 +107,11 @@ namespace EntityFrameworkStudyWithConvenience {
             public decimal ShohiZeiritsu { get; set; } = default;
             public decimal ShohiZeiritsuEatIn { get; set; } = default;
             //仕入マスタ系
-            public string ShiireSakiId { get; set; } = string.Empty;
-            public string ShiirePrdId { get; set; } = string.Empty;
-            public string ShiirePrdName { get; set; } = string.Empty;
+            public string? ShiireSakiId { get; set; } = string.Empty;
+            public string? ShiirePrdId { get; set; } = string.Empty;
+            public string? ShiirePrdName { get; set; } = string.Empty;
             public decimal ShiirePcsPerUnit { get; set; } = default;
-            public string ShiireUnit { get; set; } = string.Empty;
+            public string? ShiireUnit { get; set; } = string.Empty;
             public decimal ShireTanka { get; set; } = default;
         }
     }
