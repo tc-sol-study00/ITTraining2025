@@ -15,8 +15,6 @@ using System.Threading.Tasks;
 namespace EntityFrameworkStudyWithConvenience {
     internal class UpdateTest {
         private readonly ConvenienceContext _context;
-        private readonly Chumon _chumon;
-        private readonly Shiire _shiire;
 
         private static readonly string ChumonIdKey = "20250917-001";
 
@@ -29,18 +27,21 @@ namespace EntityFrameworkStudyWithConvenience {
 
         public async Task DBUpdate() {
 
-            Dictionary<string, EntityState> StateDictionary = new Dictionary<string, EntityState>();
+            //Dictionary<string, EntityState> StateDictionary = new Dictionary<string, EntityState>();
 
             _context.ChangeTracker.Clear();
 
             ChumonJisseki? chumonJissekis
                 = _context.ChumonJisseki
-                    //.AsNoTracking()
+                    .AsNoTracking()
                     .Where(chj => chj.ChumonId == ChumonIdKey)
                     .Include(chj => chj.ChumonJissekiMeisais)
                     .FirstOrDefault();
 
             if (chumonJissekis != null) {
+
+                _context.Entry(chumonJissekis).State = EntityState.Unchanged;
+
 
                 if (chumonJissekis.ChumonJissekiMeisais != null) {
 
@@ -82,10 +83,12 @@ namespace EntityFrameworkStudyWithConvenience {
                         Console.WriteLine($"{entrydt.ToString()}");
                     }
 
+                    var xxx = _context.ChangeTracker.Entries();
+                    //save
                     _context.ChangeTracker.Clear();
 
                     ChumonJisseki dt = new ChumonJisseki() { ChumonId = "20250924-010", ShiireSakiId = "A000000001" };
-                    _context.Add(dt);
+                    _context.Remove(dt);
 
                     Console.WriteLine("4.----------------");
                     var entry=_context.Entry(dt);
