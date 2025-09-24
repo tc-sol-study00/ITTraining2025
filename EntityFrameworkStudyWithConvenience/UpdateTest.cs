@@ -1,16 +1,6 @@
 ﻿using Convenience.Data;
-using Convenience.Migrations;
 using Convenience.Models.DataModels;
-using Convenience.Models.Interfaces;
-using Convenience.Models.Properties;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EntityFrameworkStudyWithConvenience {
     internal class UpdateTest {
@@ -27,7 +17,7 @@ namespace EntityFrameworkStudyWithConvenience {
 
         public async Task DBUpdate() {
 
-            //Dictionary<string, EntityState> StateDictionary = new Dictionary<string, EntityState>();
+            Dictionary<string, EntityState> StateDictionary = new Dictionary<string, EntityState>();
 
             _context.ChangeTracker.Clear();
 
@@ -44,7 +34,6 @@ namespace EntityFrameworkStudyWithConvenience {
 
 
                 if (chumonJissekis.ChumonJissekiMeisais != null) {
-
 
                     Console.WriteLine("1.Before----------");
                     Console.WriteLine(_context.Entry(chumonJissekis.ChumonJissekiMeisais[0]).ToString());
@@ -93,8 +82,6 @@ namespace EntityFrameworkStudyWithConvenience {
                     Console.WriteLine("4.----------------");
                     var entry=_context.Entry(dt);
                     Console.WriteLine($"{entry.ToString()}");
-
-
                 }
             }
         }
