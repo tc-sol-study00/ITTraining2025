@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkStudyWithCon
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChumonDebug", "ChumonDebug\ChumonDebug.csproj", "{AE46D1B5-0960-41B4-854D-95C0DEE63B51}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsharpStudy20250925", "CsharpStudy20250925\CsharpStudy20250925.csproj", "{6FCCF947-9778-454D-A5AD-08F63F200B7A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{AE46D1B5-0960-41B4-854D-95C0DEE63B51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE46D1B5-0960-41B4-854D-95C0DEE63B51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE46D1B5-0960-41B4-854D-95C0DEE63B51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FCCF947-9778-454D-A5AD-08F63F200B7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FCCF947-9778-454D-A5AD-08F63F200B7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FCCF947-9778-454D-A5AD-08F63F200B7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FCCF947-9778-454D-A5AD-08F63F200B7A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
