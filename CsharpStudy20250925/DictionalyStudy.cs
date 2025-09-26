@@ -190,7 +190,6 @@ namespace CsharpStudy20250925 {
                         string?[] splitDatas=strData.Split(',');
                         var pickupNumber=splitDatas[2];
                         
-                        char[] splitData2s = strData.ToCharArray();
                         break;
 
                     case Enum_ProcNo.EFCore:
