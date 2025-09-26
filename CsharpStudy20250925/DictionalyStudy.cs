@@ -14,6 +14,7 @@ namespace CsharpStudy20250925 {
             Generic,
             ToLookUp,
             TakeSkip,
+            Chunk,
             Zip,
             Split,
             EFCore
@@ -30,6 +31,7 @@ namespace CsharpStudy20250925 {
                   Enum_ProcNo.Generic,
                   Enum_ProcNo.ToLookUp,
                   Enum_ProcNo.TakeSkip,
+                  Enum_ProcNo.Chunk,
                   Enum_ProcNo.Zip,
                   Enum_ProcNo.Split,
                   Enum_ProcNo.EFCore,
@@ -149,9 +151,9 @@ namespace CsharpStudy20250925 {
                         List<dynamic> datas= new List<dynamic>() 
                             { new { Name = "aaaa", Score = 10 }, new { Name = "bbbb", Score = 20 } };
                         
-                        var result=datas.ToLookup(x => x.Name);
+                        ILookup<dynamic,dynamic> result=datas.ToLookup(x => x.Name);
 
-                        var score=result["aaaa"].Select(x => x.Score);
+                        var score=(int)result["aaaa"].Select(x => x.Score).FirstOrDefault();
                         break;
 
                     case Enum_ProcNo.TakeSkip:
@@ -168,6 +170,18 @@ namespace CsharpStudy20250925 {
                         //SkipLast
                         data3 = data2.SkipLast(2).TakeLast(1);
                         data3.ToList().ForEach(x => Console.WriteLine(x));
+
+                        break;
+
+                    case Enum_ProcNo.Chunk:
+                        //Chunk(チャンク＝塊）
+                        List<int> intData = new List<int>() { 1,2,3,4,5,6,7,8,9,10 };
+
+                        IEnumerable<int[]> chunkData = intData.Chunk(2);
+
+                        foreach( var data in chunkData) {
+                            (int sp1, int sp2) = (data[0], data[1]);
+                        }
 
                         break;
 
@@ -188,7 +202,7 @@ namespace CsharpStudy20250925 {
                         //Split
                         string strData = "1,2,3,4,5,6,7,8";
                         string?[] splitDatas=strData.Split(',');
-                        var pickupNumber=splitDatas[2];
+                        string? pickupNumber=splitDatas[2];
                         
                         break;
 
@@ -198,7 +212,7 @@ namespace CsharpStudy20250925 {
                         IEnumerable<ChumonJisseki> chumonJissekis = _context.ChumonJisseki;
 
                         //ToLookUpは遅延実行ではない
-                        var ChumonDic = chumonJissekis.ToLookup(d => (d.ShiireSakiId, d.ChumonId)); //ここでDB取り込み
+                        ILookup<(string,string), ChumonJisseki> ChumonDic = chumonJissekis.ToLookup(d => (d.ShiireSakiId, d.ChumonId)); //ここでDB取り込み
                         ChumonJisseki? chumonData=ChumonDic[("A000000001","20250917-001")].FirstOrDefault();
 
                         break;
