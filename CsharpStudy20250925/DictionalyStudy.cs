@@ -53,7 +53,14 @@ namespace CsharpStudy20250925 {
 
                         Dictionary<string, int> dic = new Dictionary<string, int>() { { "A", 1 }, { "B", 2 } };
 
+                        //値参照
+                        int rs = dic["A"];
+
+                        //データの追加
                         dic["C"] = 3;
+
+                        //変更
+                        dic["C"] = 4;
 
                         int a;
                         if (dic.ContainsKey("D")) {
@@ -78,7 +85,7 @@ namespace CsharpStudy20250925 {
                         Dictionary<(string, string), int> list = new Dictionary<(string, string), int>()
                         {{ ("A", "B"), 1 },{ ("C", "D"), 2 }};
 
-                        var dt = list[("A", "B")];
+                        int dt = list[("A", "B")];
 
                         break;
 
@@ -89,8 +96,14 @@ namespace CsharpStudy20250925 {
                         queue.Enqueue("B");
                         queue.Enqueue("C");
 
+
+                        //C
+                        //B
+                        //A   <-下から順番に取り出す(FIFO)
+
                         while (queue.Count > 0) {
-                            Console.WriteLine(queue.Dequeue());
+                            Console.WriteLine(queue.Dequeue()); //Aが取り出される
+                            //キューがB.Cに
                         }
 
                         break;
@@ -102,6 +115,10 @@ namespace CsharpStudy20250925 {
                         stacks.Push("A");
                         stacks.Push("B");
                         stacks.Push("C");
+
+                        //C  <-上から順番に取り出す(FILO)
+                        //B
+                        //A
 
                         while (stacks.Count > 0) {
                             Console.WriteLine(stacks.Pop());
@@ -180,7 +197,12 @@ namespace CsharpStudy20250925 {
                         IEnumerable<int[]> chunkData = intData.Chunk(2);
 
                         foreach( var data in chunkData) {
-                            (int sp1, int sp2) = (data[0], data[1]);
+                            if (data.Length >= 2) {
+                                (int sp1, int sp2) = (data[0], data[1]);
+                            }
+                            else {
+                                int sp1 = data[0];
+                            }
                         }
 
                         break;
