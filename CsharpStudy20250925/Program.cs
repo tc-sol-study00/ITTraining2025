@@ -1,5 +1,6 @@
 ﻿namespace CsharpStudy20250925 {
     using Convenience.Data;
+    using Convenience.Models.DataModels;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -22,6 +23,8 @@
 
                 // Register your service
                 serviceCollection.AddTransient<DictionalyStudy>();
+                serviceCollection.AddTransient<ChumonJissekiEnumerator>();
+                serviceCollection.AddTransient<Iterator>();
 
                 // Build provider
                 var serviceProvider = serviceCollection.BuildServiceProvider();
@@ -29,6 +32,21 @@
                 // Resolve and run
                 var app = serviceProvider.GetRequiredService<DictionalyStudy>();
                 app.Run();
+
+                //
+                var chumonM = serviceProvider.GetRequiredService<ChumonJissekiEnumerator>();
+
+                foreach(var item in chumonM) {
+                    chumonM.DisplayData(item);
+                }
+
+                var iterator = serviceProvider.GetRequiredService<Iterator>();
+
+                foreach (var item in iterator) {
+                    Console.WriteLine(item);
+                }
+
+
             }
         }
     }

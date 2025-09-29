@@ -90,7 +90,7 @@ namespace CsharpStudy20250925 {
                         break;
 
                     case Enum_ProcNo.Queue:
-                        //Queue
+                        //Queue（キュー＝待ち行列）
                         Queue<string> queue = new Queue<string>();
                         queue.Enqueue("A");
                         queue.Enqueue("B");
@@ -99,7 +99,7 @@ namespace CsharpStudy20250925 {
 
                         //C
                         //B
-                        //A   <-下から順番に取り出す(FIFO)
+                        //A   <-下から順番に取り出す(FIFO)＝先入れ先出し
 
                         while (queue.Count > 0) {
                             Console.WriteLine(queue.Dequeue()); //Aが取り出される
@@ -116,7 +116,7 @@ namespace CsharpStudy20250925 {
                         stacks.Push("B");
                         stacks.Push("C");
 
-                        //C  <-上から順番に取り出す(FILO)
+                        //C  <-上から順番に取り出す(FILO)＝先入れ後出し
                         //B
                         //A
 
