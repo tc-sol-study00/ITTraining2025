@@ -25,6 +25,7 @@
                 serviceCollection.AddTransient<DictionalyStudy>();
                 serviceCollection.AddTransient<ChumonJissekiEnumerator>();
                 serviceCollection.AddTransient<Iterator>();
+                serviceCollection.AddTransient<ChumonDatas>();
 
                 // Build provider
                 var serviceProvider = serviceCollection.BuildServiceProvider();
@@ -40,11 +41,20 @@
                     chumonM.DisplayData(item);
                 }
 
-                var iterator = serviceProvider.GetRequiredService<Iterator>();
+                ///
+                ///
+                Iterator iterator = serviceProvider.GetRequiredService<Iterator>();
 
-                foreach (var item in iterator) {
+                foreach (var item in iterator) {    //Iteratorオブジェクトのイテレータ(GetEnumerator())を呼ぶ
                     Console.WriteLine(item);
                 }
+
+
+                //ChumonDatas datas = serviceProvider.GetRequiredService<ChumonDatas>();
+                //
+                //foreach (var item in datas) {
+                //    Console.WriteLine(item);
+                //}
 
 
             }
