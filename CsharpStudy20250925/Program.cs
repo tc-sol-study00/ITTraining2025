@@ -26,6 +26,7 @@
                 serviceCollection.AddTransient<ChumonJissekiEnumerator>();
                 serviceCollection.AddTransient<Iterator>();
                 serviceCollection.AddTransient<ChumonDatas>();
+                serviceCollection.AddTransient<Delegate>();
 
                 // Build provider
                 var serviceProvider = serviceCollection.BuildServiceProvider();
@@ -56,7 +57,8 @@
                 //    Console.WriteLine(item);
                 //}
 
-
+                var appDel = serviceProvider.GetRequiredService<Delegate>();
+                appDel.Run();
             }
         }
     }

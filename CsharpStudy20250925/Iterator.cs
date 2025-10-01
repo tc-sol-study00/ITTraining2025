@@ -25,11 +25,9 @@ namespace CsharpStudy20250925 {
 
             //List<ChumonJisseki> dts = _context.ChumonJisseki.ToList();
 
-            IEnumerable<ChumonJisseki> dst = _context.ChumonJisseki;
-
-            foreach ( var item in dst) {
-                Console.WriteLine(item);
-            }
+            //foreach ( var item in dst) {
+            //    Console.WriteLine(item);
+            //}
         }
 
         //イテレータ実装の際に必要な記述
