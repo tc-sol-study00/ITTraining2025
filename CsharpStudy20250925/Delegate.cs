@@ -32,11 +32,12 @@ namespace CsharpStudy20250925 {
             cwl("aaa");
             string res = fc(1, 2);
 
-            var button1 = new Button(Method1);
-            var button2 = new Button(Method2);
+            var kensakuButton = new Button(Kensaku);
+            var torokuBottun = new Button(Toroku);
+            var sakujoButton = new Button(Sakujo);
 
-            Dictionary<int, Button> dic 
-                = new Dictionary<int, Button>() {{ 1, button1 }, { 2, button2 }};
+            Dictionary<int, Button> dic
+                = new Dictionary<int, Button>() { { 1, kensakuButton }, { 2, torokuBottun }, { 3, sakujoButton } };
 
             int intInput;
             string? strInput;
@@ -47,17 +48,71 @@ namespace CsharpStudy20250925 {
                 } while (!int.TryParse(strInput, out intInput));
 
                 if (dic.ContainsKey(intInput)) {
+                    //ハンドラ処理なし・クリックイベントを起こすだけ
                     dic[intInput].Click();
                 }
             }
         }
 
-        public void Method1() {
-            Console.WriteLine("Method1実行");
+        public void Kensaku() {
+            Console.WriteLine("Kensaku実行");
         }
-        public void Method2() {
-            Console.WriteLine("Method2実行");
+        public void Toroku() {
+            Console.WriteLine("Toroku実行");
         }
 
+        public void Sakujo() {
+            Console.WriteLine("Sakujo実行");
+        }
+
+        //Event＋deligateを使わない場合
+        internal class OldMethod {
+
+            internal class OldButton {
+                internal int _MenuNo { get; set; }
+                internal OldButton(int MenuNo) {
+                    _MenuNo = MenuNo;
+                }
+            }
+
+            internal void Run() {
+
+                var kensakuButton = new OldButton(1);
+                var torokuBottun = new OldButton(2);
+
+                Dictionary<int, OldButton> dic
+                = new Dictionary<int, OldButton>() { { 1, kensakuButton }, { 2, torokuBottun } };
+
+
+                int intInput;
+                string? strInput;
+                while (true) {
+                    do {
+                        Console.Write("Input Menu No=");
+                        strInput = Console.ReadLine();
+                    } while (!int.TryParse(strInput, out intInput));
+
+                    if (dic.ContainsKey(intInput)) {
+                        //ハンドラ処理
+                        switch (dic[intInput]._MenuNo) {
+                            case 1:
+                                Kensaku();
+                                break;
+                            case 2:
+                                Toroku();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+            }
+            public void Kensaku() {
+                Console.WriteLine("Kensaku実行");
+            }
+            public void Toroku() {
+                Console.WriteLine("Touroku実行");
+            }
+        }
     }
 }
